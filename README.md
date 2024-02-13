@@ -1,10 +1,15 @@
 # Jilin Zheng // U49258796
 
+## Notes for Modules
+
+- Allow passing EITHER ID OR the dataset name to target_dataset, target_data, etc. (anything that might need an ID)
+
 ## Preliminary API Definition
 
 (CRUD: C-Create, R-Read, U-Update, D-Delete)
 
 Data Upload Module:
+
 - (C) CreateDataset
 - (U) UploadDataset
 - (D) DeleteDataset
@@ -14,6 +19,7 @@ Data Upload Module:
 - (D) DeleteLabel (delete a label listing entirely)
 
 Training Module:
+
 - (C) CreateTrainingPoint
 - (U) AddTrainingPoint
 - (U) RemoveTrainingPoint
