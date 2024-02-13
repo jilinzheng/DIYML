@@ -1,3 +1,7 @@
+"""
+The data_upload module, responsible for dataset/data management and labeling.
+"""
+
 def create_dataset(type):
     """
     Create a dataset with [type] data.
