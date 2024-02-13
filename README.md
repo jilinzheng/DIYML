@@ -4,6 +4,7 @@
 
 - Allow passing EITHER ID OR the dataset name to target_dataset, target_data, etc. (anything that might need an ID)
 - Not familiar enough with ML training to do much in training module...need to inquire where I can learn more...
+- Need to generate expected errors for each API definition still
 
 ## Preliminary API Definition
 
