@@ -2,15 +2,10 @@
 User authentication module.
 """
 
-from flask_restful import Resource
+from flask_restful import Resource, request
+from flask_sqlalchemy import SQLAlchemy
 
-users = {
-    0:{'username':'username', 'password':'password'},
-    1:{'username':'jilin', 'password':'admin'},
-    2:{'username':'jimbo', 'password':'jimboisreallycool'}
-}
-
-class Users(Resource):
+class UsersAPI(Resource):
     ''' User Resource class. '''
     def get(self):
         '''
@@ -18,6 +13,9 @@ class Users(Resource):
         Will be deprecated after final implementation.
         '''
         users_list = []
-        for user in users.values():
-            users_list.append(user['username'])
+        #for user in users.values():
+        #    users_list.append(user['username'])
         return users_list
+
+    def post(self):
+        data = request.json
