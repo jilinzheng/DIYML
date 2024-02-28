@@ -1,30 +1,6 @@
 # Jilin Zheng // U49258796
 
-## 240212 Notes for Modules
+## Database Schemas
 
-- Allow passing EITHER ID OR the dataset name to target_dataset, target_data, etc. (anything that might need an ID)
-- Not familiar enough with ML training to do much in training module...need to inquire where I can learn more...
-- Need to generate expected errors for each API definition still
+![image](https://github.com/jilinzheng/ec530-DIYML/assets/133818802/3dd07848-b432-40ef-b178-121467a6176b)
 
-## Preliminary API Definition
-
-(CRUD: C-Create, R-Read, U-Update, D-Delete)
-
-Data Upload Module:
-
-- (C) CreateDataset
-- (U) UploadDataset
-- (D) DeleteDataset
-- (C) CreateLabel
-- (U) AddLabel
-- (U) RemoveLabel (remove label from specific data)
-- (D) DeleteLabel (delete a label listing entirely)
-
-Training Module:
-
-- (C) CreateTrainingPoint
-- (U) AddTrainingPoint
-- (U) RemoveTrainingPoint
-- (D) DeleteTrainingPoint
-- (U) SetTrainingConfig
-- (R) GetTrainingResults
