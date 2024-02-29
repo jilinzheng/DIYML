@@ -2,5 +2,4 @@
 
 ## Database Schemas
 
-![image](https://github.com/jilinzheng/ec530-DIYML/assets/133818802/3dd07848-b432-40ef-b178-121467a6176b)
-
+<img width="1015" alt="Screenshot 2024-02-29 104240" src="https://github.com/jilinzheng/ec530-DIYML/assets/133818802/29b13614-548a-46f1-8e84-107fd5cd2b4f">
