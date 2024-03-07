@@ -25,15 +25,18 @@ def json_encode(target):
     return json.loads(json_util.dumps(target))
 
 class UserAPI(Resource):
-    ''' sample user api to figure out flask-restful. '''
+    ''' API for all user-related functions '''
     def get(self, user_name):
         ''' return user information '''
         return json_encode(users.find_one({"user_name": user_name}))
 
     def post(self, user_name, user_pass):
         ''' creates a new user, returning the new user [object] id '''
-        users.insert_one({"user_name": user_name, "user_pass": user_pass})
-        return json_encode(users.find_one({"user_name": user_name}, {"_id": 1}))
+        users.insert_one({"user_name": user_name,
+                          "user_pass": user_pass, 
+                          "date_created": datetime.datetime.now().strftime("%Y/%m/%d")})
+        return json_encode(users.find_one({"user_name": user_name}, 
+                                          {"_id": 1}))
 
 
 api.add_resource(UserAPI, '/user/<string:user_name>/<string:user_pass>')
