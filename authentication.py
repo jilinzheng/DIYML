@@ -2,20 +2,18 @@
 User authentication module.
 """
 
-from flask_restful import Resource, request
-from flask_sqlalchemy import SQLAlchemy
+from flask_restful import Resource
+from diyml import db
 
-class UsersAPI(Resource):
-    ''' User Resource class. '''
-    def get(self):
-        '''
-        Retrieve list of users for testing purposes.
-        Will be deprecated after final implementation.
-        '''
-        users_list = []
-        #for user in users.values():
-        #    users_list.append(user['username'])
-        return users_list
+users = db["users"]
 
-    def post(self):
-        data = request.json
+class UserAPI(Resource):
+    ''' sample user api to figure out flask-restful. '''
+    def get(self, user_name):
+        ''' return user information '''
+        return users.find_one({"user_name": user_name})
+
+    def post(self, user_name, user_pass):
+        ''' creates a new user, returning the new user information '''
+        users.insert_one({"user_name": user_name, "user_pass": user_pass})
+        return users.find_one({"user_name": user_name})
