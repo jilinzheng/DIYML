@@ -32,7 +32,7 @@ class UserAPI(Resource):
 
         users.insert_one({'user_name': user_name,
                           'user_pass': user_pass, 
-                          'date_created': datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S')})
+                          'date_created': datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')})
         return json_encode(users.find_one({'user_name': user_name},
                                           {'_id': 1}))
 

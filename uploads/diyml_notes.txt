@@ -1,0 +1,24 @@
+i am training models to detect classes/labels
+	build computer vision models, e.g.: azure computervision, amazon rekognition
+
+images (reference uris to a file system) - need to find out how to do file system
+	split images into three categories: training, testing, and validation
+	each image should have classes/labels
+
+training = generating the model
+	YOLO https://towardsdatascience.com/yolo-object-detection-with-opencv-and-python-21e50ac599e9
+	resnet
+	pre-set configurations
+
+inference = making prediction/getting results
+	would need an already-trained model
+	inputs would be IMAGE and MODEL -> results
+	use roboflow and hugging face etc. to get model?
+		but i thought we would train it with some python package, rather than using their apis? would that not be redundant...
+		this is for experiment actual training etc. would be something to do later on - which I will do, so I could just do it right now too with scikit-learn 
+			https://www.youtube.com/watch?v=0B5eIE_1vpU
+			https://scikit-learn.org/stable/supervised_learning.html#supervised-learning
+
+mongodb https://blog.webdevsimplified.com/2022-02/mongo-db/
+	either install locally or use mongodb online database service (i believe exposed with api)
+

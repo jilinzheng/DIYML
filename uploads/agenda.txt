@@ -1,0 +1,21 @@
+ec440
+tls assignment due wed 3/20
+
+ec530
+project 2
+	set up file system for data upload module
+
+ek381
+hw 6 due fri 1900
+
+me416
+homework 2 due mar 21 1530
+
+research
+follow jonathan's plan
+	rdp into nislab-machine (128.197.128.223:3389) might have to use vpn if @ home
+		nislab-user
+		Desktop-003
+		
+misc
+https://calmcode.io/course/comprehensions/introduction
