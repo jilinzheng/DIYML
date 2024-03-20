@@ -38,7 +38,6 @@ def allowed_file(filename):
 def upload_file():
     """
     Obtained from https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/
-    """
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -54,6 +53,13 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('download_file', name=filename))
+    return render_template('index.html')
+    """
+    # obtained from https://stackoverflow.com/questions/11817182/uploading-multiple-files-with-flask?noredirect=1&lq=1
+    if request.method == "POST":
+        files = request.files.getlist("file")
+        for file in files:
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
     return render_template('index.html')
 
 @app.route('/uploads/<name>')
