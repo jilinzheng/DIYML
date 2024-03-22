@@ -20,13 +20,13 @@ def home():
 
 # add apis from other modules
 #import data_upload # non flask restful
-from data_upload import DataUpload
+from data_upload import ImageUpload
 
 api.add_resource(UserAPI,
                  '/user/<string:user_name>',
                  '/user/<string:user_name>/<string:user_pass>')
-api.add_resource(DataUpload,
-                 '/data')
+api.add_resource(ImageUpload,
+                 '/image/<string:image_name>/<string:user_name>')
 
 
 if __name__ == '__main__':

@@ -15,10 +15,10 @@ class UserAPI(Resource):
         """ 
         Gets user information.
 
-        :param user_name: 
+        :param user_name: an unique user_name
         :returns: all fields associated with an user document
         """
-        return json_encode(users.find_one({'user_name': user_name}))
+        return json_encode(users.find_one({'user_name': user_name})), 200
 
     def post(self, user_name, user_pass):
         """ 
@@ -26,16 +26,15 @@ class UserAPI(Resource):
         
         :param user_name: an unique user_name
         :param user_pass: the new user's associated password
-        :returns: the new user's ObjectID
+        :returns: the new user's information
         """
         if users.find_one({'user_name': user_name}) is not None:
-            return {'ERROR': 'user_name is NOT unique!'}
+            return {'ERROR': 'user_name is NOT unique!'}, 400
 
         users.insert_one({'user_name': user_name,
                           'user_pass': user_pass, 
                           'date_created': datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')})
-        return json_encode(users.find_one({'user_name': user_name},
-                                          {'_id': 1}))
+        return json_encode(users.find_one({'user_name': user_name})), 201
 
     def put(self, user_name, user_pass):
         """
@@ -47,13 +46,14 @@ class UserAPI(Resource):
         """
         users.update_one({'user_name': user_name},
                          {'$set': {'user_pass': user_pass}})
-        return json_encode(users.find_one({'user_name': user_name}))
+        return json_encode(users.find_one({'user_name': user_name})), 202
 
     def delete(self, user_name):
         """
         Delete a specified user.
         
         :param user_name: user to be deleted
+        :returns: success message with user that was deleted
         """
         users.delete_one({'user_name': user_name})
-        return json_encode(users.find_one({'user_name': user_name}))
+        return {'SUCCESS': f'{user_name} has been deleted'}, 202
