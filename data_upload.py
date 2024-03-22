@@ -2,6 +2,51 @@
 The data_upload module, responsible for dataset/data management and labeling.
 """
 
+import os
+from flask import render_template, request
+from flask_restful import Resource, reqparse
+import werkzeug
+from __main__ import app
+
+
+class DataUpload(Resource):
+    """ Upload image datasets. """
+    def post(self):
+        """
+        
+        """
+        parser = reqparse.RequestParser()
+        parser.add_argument('file',
+                            type=werkzeug.datastructures.FileStorage,
+                            location='files',
+                            required=True)
+        args = parser.parse_args()
+        # print(args)
+        image = args['file']
+        image.save('test.png')
+
+'''
+UPLOAD_FOLDER = './uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+# note: flask_restful does not support render_template,
+# which is why classic flask is used below
+@app.route('/', methods=['GET', 'POST'])
+def upload_file():
+    """
+    Obtained from
+    https://stackoverflow.com/questions/11817182/uploading-multiple-files-with-flask?noredirect=1&lq=1
+    """
+    if request.method == "POST":
+        files = request.files.getlist("file")
+        for file in files:
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
+    return render_template('index.html')'''
+
+'''
+class DataUpload(Resource):
+    
 def create_dataset(type):
     """
     Create a dataset with [type] data.
@@ -70,4 +115,4 @@ def delete_label(label_name):
     :param label_name: the label name to be deleted
     :returns: the label name deleted
     """
-    return label_name
+    return label_name'''
