@@ -23,7 +23,7 @@ class DataUpload(Resource):
         args = parser.parse_args()
         # print(args)
         image = args['file']
-        image.save('test.png')
+        image.save('./uploads/test.png')
 
 '''
 UPLOAD_FOLDER = './uploads'

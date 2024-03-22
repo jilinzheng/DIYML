@@ -13,6 +13,11 @@ app = Flask(__name__)
 api = Api(app)
 
 
+# for debug purposes
+@app.route('/', methods=['GET'])
+def home():
+    return 'hello world!'
+
 # add apis from other modules
 #import data_upload # non flask restful
 from data_upload import DataUpload
