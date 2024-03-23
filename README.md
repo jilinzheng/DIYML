@@ -18,7 +18,7 @@ You must have MongoDB installed locally, as well as all of the packages specifie
 
 ## Database Schema
 
-
+<img width="421" alt="database_schema" src="https://github.com/jilinzheng/DIYML/assets/133818802/3bc6d7dc-8f62-45ac-a57b-5fec8ebbeb31">
 
 ## References
 
