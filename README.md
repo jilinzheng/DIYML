@@ -27,3 +27,4 @@ You must have MongoDB installed locally, as well as all of the packages specifie
 - [Flask-RESTful Documentation](https://readthedocs.org/projects/flask-restful/downloads/pdf/latest/)
 - [File Uploads in Flask-RESTful](https://stackoverflow.com/questions/28982974/flask-restful-upload-image)
 - [Splitting Flask App into Multiple Files](https://stackoverflow.com/questions/11994325/how-to-divide-flask-app-into-multiple-py-files)
+- [Image Classification with Python and Scikit-learn](https://www.youtube.com/watch?v=il8dMDlXrIE)
