@@ -1,6 +1,7 @@
 """
-The data_upload module, responsible for dataset/data management and labeling.
+Data uploading module, responsible for dataset/data management and labeling.
 """
+
 
 import datetime
 from flask_restful import Resource, reqparse
@@ -30,7 +31,7 @@ class ImageUpload(Resource):
 
         if users.find_one({'user_name': user_name}) is None:
             return {'ERROR': f'User {user_name} does not exist!'}, 400
-        
+
         if images.find_one({'image_name': image_name}) is not None:
             return {'ERROR': 'image_name is NOT unique!'}, 400
 
@@ -39,5 +40,5 @@ class ImageUpload(Resource):
                            'image_path': './images',
                            'image_type': '',
                            'image_classes': '',
-                           'date_uploaded': datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')})
+                           'date_uploaded': datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')}) # pylint: disable=line-too-long
         return json_encode(images.find_one({'image_name': image_name})), 200

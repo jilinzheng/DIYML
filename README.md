@@ -1,4 +1,4 @@
-# Jilin Zheng // U49258796
+# Jilin Zheng // U49258796 // DIYML
 
 ## Prerequisites
 
@@ -11,15 +11,17 @@ You must have MongoDB installed locally, as well as all of the packages specifie
 ## Scripts
 
 - [diyml.py](diyml.py): the module that ties all submodules together; also sets up the flask-restful app
-- [authentication.py](authentication.py): consists of the UserAPI, which supports all of the user-related CRUD functions
 - [database.py](database.py): connects the app to the MongoDB database
+- [authentication.py](authentication.py): consists of the UserAPI, which supports all of the user-related CRUD functions
+- 
 
-## Database Schemas - Going w/ MongoDB
 
-<img width="1015" alt="Screenshot 2024-02-29 104240" src="https://github.com/jilinzheng/ec530-DIYML/assets/133818802/29b13614-548a-46f1-8e84-107fd5cd2b4f">
+## Database Schema
+
+
 
 ## References
 
-- https://www.youtube.com/watch?v=ofme2o29ngU
-- https://blog.webdevsimplified.com/2022-02/mongo-db/
-- https://flask.palletsprojects.com/en/2.3.x/patterns/fileuploads/
+- [MongoDB Cheat Sheet](https://blog.webdevsimplified.com/2022-02/mongo-db/)
+- [File Uploads in Flask-RESTful](https://stackoverflow.com/questions/28982974/flask-restful-upload-image)
+- [HTTP Status Codes Cheat Sheet](https://cheatography.com/kstep/cheat-sheets/http-status-codes/?source=post_page-----1353126d9cd9--------------------------------)

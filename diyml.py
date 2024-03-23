@@ -1,5 +1,5 @@
 """
-Main application that combines all modules
+Main application that combines all other modules.
 """
 
 
@@ -13,15 +13,17 @@ app = Flask(__name__)
 api = Api(app)
 
 
-# for debug purposes
 @app.route('/', methods=['GET'])
 def home():
+    """ Temporary route for debug purposes. """
     return 'hello world!'
 
-# add apis from other modules
-#import data_upload # non flask restful
-from data_upload import ImageUpload
 
+# importing here in order to allow data_upload module to use flask app variable
+from data_upload import ImageUpload # pylint: disable=wrong-import-position
+
+
+# add resources to flask-restful
 api.add_resource(UserAPI,
                  '/user/<string:user_name>',
                  '/user/<string:user_name>/<string:user_pass>')
