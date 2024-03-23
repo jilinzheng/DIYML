@@ -23,5 +23,7 @@ You must have MongoDB installed locally, as well as all of the packages specifie
 ## References
 
 - [MongoDB Cheat Sheet](https://blog.webdevsimplified.com/2022-02/mongo-db/)
-- [File Uploads in Flask-RESTful](https://stackoverflow.com/questions/28982974/flask-restful-upload-image)
 - [HTTP Status Codes Cheat Sheet](https://cheatography.com/kstep/cheat-sheets/http-status-codes/?source=post_page-----1353126d9cd9--------------------------------)
+- [Flask-RESTful Documentation](https://readthedocs.org/projects/flask-restful/downloads/pdf/latest/)
+- [File Uploads in Flask-RESTful](https://stackoverflow.com/questions/28982974/flask-restful-upload-image)
+- [Splitting Flask App into Multiple Files](https://stackoverflow.com/questions/11994325/how-to-divide-flask-app-into-multiple-py-files)
