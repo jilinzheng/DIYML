@@ -28,7 +28,7 @@ api.add_resource(UserAPI,
                  '/user/<string:user_name>',
                  '/user/<string:user_name>/<string:user_pass>')
 api.add_resource(ImageUpload,
-                 '/image/<string:image_name>/<string:user_name>')
+                 '/image')
 
 
 if __name__ == '__main__':
