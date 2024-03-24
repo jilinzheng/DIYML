@@ -13,8 +13,7 @@ You must have MongoDB installed locally, as well as all of the packages specifie
 - [diyml.py](diyml.py): the module that ties all submodules together; also sets up the flask-restful app
 - [database.py](database.py): connects the app to the MongoDB database
 - [authentication.py](authentication.py): consists of the UserAPI, which supports all of the user-related CRUD functions
-- 
-
+- [data_upload.py](data_upload.py): handles image uploading and connects to the image collection; NOTE: no quotes around file path for curl form data
 
 ## Database Schema
 

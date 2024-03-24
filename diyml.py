@@ -24,11 +24,8 @@ from data_upload import ImageUpload # pylint: disable=wrong-import-position
 
 
 # add resources to flask-restful
-api.add_resource(UserAPI,
-                 '/user/<string:user_name>',
-                 '/user/<string:user_name>/<string:user_pass>')
-api.add_resource(ImageUpload,
-                 '/image')
+api.add_resource(UserAPI, '/user')
+api.add_resource(ImageUpload,'/image')
 
 
 if __name__ == '__main__':

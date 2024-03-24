@@ -4,56 +4,90 @@ User authentication module.
 
 
 import datetime
-from flask_restful import Resource
+from flask_restful import Resource, reqparse
 from json_encode import json_encode
 from database import users
 
 
+def init_parser(require_pass=False):
+    """
+    Initialize request parser.
+    """
+    parser = reqparse.RequestParser()
+    parser.add_argument('user_name',
+                        type=str,
+                        location='args',
+                        required=True,
+                        help='You must specify a user_name.')
+    
+    if require_pass:
+        parser.add_argument('user_pass',
+                            type=str,
+                            location='args',
+                            required=True,
+                            help='You must specify a password for the user.')
+
+    return parser
+
+
 class UserAPI(Resource):
     """ API for all user-related functions """
-    def get(self, user_name):
+    def get(self):
         """ 
         Gets user information.
-
-        :param user_name: an unique user_name
-        :returns: all fields associated with an user document
         """
+        parser = init_parser(require_pass=False)
+        args = parser.parse_args()
+        user_name = args['user_name']
+
         return json_encode(users.find_one({'user_name': user_name})), 200
 
-    def post(self, user_name, user_pass):
+    def post(self):
         """ 
         Creates a new user.
-        
-        :param user_name: an unique user_name
-        :param user_pass: the new user's associated password
-        :returns: the new user's information
         """
+        parser = init_parser(require_pass=True)
+        args = parser.parse_args()
+        user_name = args['user_name']
+        user_pass = args['user_pass']
+
         if users.find_one({'user_name': user_name}) is not None:
-            return {'ERROR': 'user_name is NOT unique!'}, 400
+            return {'ERROR': f'{user_name} is NOT unique!'}, 400
 
         users.insert_one({'user_name': user_name,
                           'user_pass': user_pass, 
                           'date_created': datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')}) # pylint: disable=line-too-long
+
         return json_encode(users.find_one({'user_name': user_name})), 201
 
-    def put(self, user_name, user_pass):
+    def put(self):
         """
         Update the user_pass associated with the user_name.
-
-        :param user_name: user whose password shall be updated
-        :param new_pass: the new password
-        :returns: the modified user information
         """
+        parser = init_parser(require_pass=True)
+        args = parser.parse_args()
+        user_name = args['user_name']
+        user_pass = args['user_pass']
+
+        if users.find_one({'user_name': user_name}) is None:
+            return {'ERROR': f'{user_name} does not exist!'}, 400
+
         users.update_one({'user_name': user_name},
                          {'$set': {'user_pass': user_pass}})
+
         return json_encode(users.find_one({'user_name': user_name})), 202
 
-    def delete(self, user_name):
+    def delete(self):
         """
         Delete a specified user.
-        
-        :param user_name: user to be deleted
-        :returns: success message with user that was deleted
         """
+        parser = init_parser(require_pass=False)
+        args = parser.parse_args()
+        user_name = args['user_name']
+
+        if users.find_one({'user_name': user_name}) is None:
+            return {'ERROR': f'{user_name} does not exist!'}, 400
+
         users.delete_one({'user_name': user_name})
+
         return {'SUCCESS': f'{user_name} has been deleted'}, 202
