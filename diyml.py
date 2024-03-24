@@ -20,12 +20,12 @@ def home():
 
 
 # importing here in order to allow data_upload module to use flask app variable
-from data_upload import ImageUpload # pylint: disable=wrong-import-position
+from data_upload import ImageAPI # pylint: disable=wrong-import-position
 
 
 # add resources to flask-restful
 api.add_resource(UserAPI, '/user')
-api.add_resource(ImageUpload,'/image')
+api.add_resource(ImageAPI,'/image')
 
 
 if __name__ == '__main__':

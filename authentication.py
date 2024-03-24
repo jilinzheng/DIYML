@@ -40,6 +40,9 @@ class UserAPI(Resource):
         args = parser.parse_args()
         user_name = args['user_name']
 
+        if users.find_one({'user_name': user_name}) is None:
+            return {'ERROR': f'{user_name} does not exist!'}, 400
+
         return json_encode(users.find_one({'user_name': user_name})), 200
 
     def post(self):

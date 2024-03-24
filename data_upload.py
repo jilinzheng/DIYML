@@ -11,11 +11,11 @@ from database import users, images
 from json_encode import json_encode
 
 
-class ImageUpload(Resource):
-    """ Upload image datasets. """
+class ImageAPI(Resource):
+    """ API for all image-related functions. """
     def post(self):
         """
-        Save an image (file) associated with an user to ./images.
+        Save an image (file) associated with an user to ./images/{user_name}/{category}/{file.filename}.
         """
         parser = reqparse.RequestParser()
         parser.add_argument('user_name',
@@ -23,41 +23,43 @@ class ImageUpload(Resource):
                             location='args',
                             required=True,
                             help='You must specify an user.')
-        parser.add_argument('file',
-                            type=werkzeug.datastructures.FileStorage,
-                            location='files',
-                            required=True,
-                            help='You must provide at least one image!',
-                            action='append')
         parser.add_argument('category',
                             type=str,
                             location='args',
                             required=True,
-                            help='You must provide a category for each image!',
-                            action='append')
+                            help='You must provide a category for each image!',)
+        parser.add_argument('file',
+                            type=werkzeug.datastructures.FileStorage,
+                            location='files',
+                            required=True,
+                            help='You must provide at least one image!')
         args = parser.parse_args()
 
         user_name = args['user_name']
-        files = args['file']
-        categories = args['category']
+        category = args['category']
+        file = args['file']
 
-        if (len(files) != len(categories)):
-            return {'ERROR': 'Each image must have exactly one category!'}, 400
+        save_location = os.path.join(os.path.dirname(__file__),
+                               'images',
+                               f'{user_name}',
+                               f'{category}',)
+        if not os.path.exists(save_location):
+             os.makedirs(save_location)
 
-        for ii, file in enumerate(files):
-            file.save(f'./images/{file.filename}')
+        file.save(os.path.join(save_location,
+                               f'{file.filename}'))
 
-            if users.find_one({'user_name':user_name}) is None:
-                return {'ERROR':f'{user_name} does not exist!'}, 400
+        # allows multiple users to have same filenames,
+        # but one user cannot have multiple files with the same name
+        if images.find_one({'$and': [{'image_name':file.filename},
+                                     {'user_name':user_name}]}) is not None:
+            return {'ERROR':f'{file.filename} is NOT unique to {user_name}!'}, 400
 
-            if images.find_one({'image_name':file.filename}) is not None:
-                return {'ERROR':'image_name is NOT unique!'}, 400
-
-            images.insert_one({'image_name':file.filename,
-                               'user_name':user_name,
-                               'image_path':f'./images/{file.filename}',
-                               'image_category':categories[ii],
-                               'date_uploaded':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')}) # pylint: disable=line-too-long
+        images.insert_one({'image_name':file.filename,
+                           'user_name':user_name,
+                           'image_path':save_location,
+                           'image_category':category,
+                           'date_uploaded':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')}) # pylint: disable=line-too-long
 
         return json_encode(images.find_one({'image_name': file.filename})), 201
 
@@ -84,7 +86,9 @@ class ImageUpload(Resource):
         if images.find_one({'image_name':image_name}) is None:
             return {'ERROR':f'{image_name} does not exist!'}, 400
         
-        os.remove(rf'C:\Users\Jilin\Desktop\DIYML\images\{image_name}')
-        images.delete_one({'image_name':image_name})
+        os.remove(os.path.join(f'{images.find_one({'$and':[{'image_name':image_name},
+                                                           {'user_name':user_name}]})['image_path']}', image_name))
+        images.delete_one({'$and':[{'image_name':image_name},
+                                   {'user_name':user_name}]})
 
         return {'SUCCESS': f'{image_name} has been deleted'}, 202

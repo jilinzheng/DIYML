@@ -3,21 +3,27 @@ Test valid and invalid CRUD operations on ImageUpload resource.
 """
 
 
+import os
 import requests
 
 
 user_url = 'http://localhost:5000/user'
 image_url = 'http://localhost:5000/image'
-files = {'file':open(r'C:\Users\Jilin\Desktop\DIYML\test_image.png','rb')}
+files = {'file':open(os.path.join(os.path.dirname(__file__),
+                                  'test_image.png'),
+                                  'rb')}
 
 
 def test_create_upload():
-    # first create a test user testName
+    # first create a test user testName if it doesn't exist
     params = {'user_name':'testName',
               'user_pass':'testPass'}
-    response = requests.post(url=user_url,
-                             params=params)
-    assert response.status_code == 201 # created
+    response = requests.get(url=user_url,
+                            params=params)
+    if response.status_code == 400:
+        response = requests.post(url=user_url,
+                                params=params)
+        assert response.status_code == 201 # created
 
     # then test the image uploading with the testName user
     params = {'user_name':'testName',
