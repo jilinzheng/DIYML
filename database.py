@@ -2,6 +2,8 @@
 MongoDB database running locally.
 Collections: users, images, and models.
 """
+
+
 from pymongo import MongoClient
 
 

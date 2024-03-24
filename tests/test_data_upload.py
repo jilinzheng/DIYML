@@ -5,6 +5,7 @@ Test valid and invalid CRUD operations on ImageUpload resource.
 
 import os
 import requests
+from utils import reset_db
 
 
 user_url = 'http://localhost:5000/user'
@@ -12,6 +13,10 @@ image_url = 'http://localhost:5000/image'
 files = {'file':open(os.path.join(os.path.dirname(__file__),
                                   'test_image.png'),
                                   'rb')}
+
+
+def test_init():
+    reset_db()
 
 
 def test_create_upload():

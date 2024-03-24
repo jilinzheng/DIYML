@@ -4,9 +4,14 @@ Test valid and invalid CRUD operations on UserAPI resource.
 
 
 import requests
+from utils import reset_db
 
 
 url = 'http://localhost:5000/user'
+
+
+def test_init():
+    reset_db()
 
 
 def test_create_user():

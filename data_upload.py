@@ -8,7 +8,7 @@ import os
 from flask_restful import Resource, reqparse
 import werkzeug
 from database import users, images
-from json_encode import json_encode
+from utils.json_encode import json_encode
 
 
 class ImageAPI(Resource):
@@ -51,8 +51,8 @@ class ImageAPI(Resource):
 
         # allows multiple users to have same filenames,
         # but one user cannot have multiple files with the same name
-        if images.find_one({'$and': [{'image_name':file.filename},
-                                     {'user_name':user_name}]}) is not None:
+        if images.find_one({'$and': [{'user_name':user_name},
+                                     {'image_name':file.filename}]}) is not None:
             return {'ERROR':f'{file.filename} is NOT unique to {user_name}!'}, 400
 
         images.insert_one({'image_name':file.filename,
@@ -61,7 +61,8 @@ class ImageAPI(Resource):
                            'image_category':category,
                            'date_uploaded':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')}) # pylint: disable=line-too-long
 
-        return json_encode(images.find_one({'image_name': file.filename})), 201
+        return json_encode(images.find_one({'$and': [{'user_name':user_name},
+                                                     {'image_name':file.filename}]})), 201
 
     def delete(self):
         parser = reqparse.RequestParser()
@@ -80,15 +81,13 @@ class ImageAPI(Resource):
         user_name = args['user_name']
         image_name = args['image_name']
 
-        if users.find_one({'user_name':user_name}) is None:
-                return {'ERROR':f'{user_name} does not exist!'}, 400
-
-        if images.find_one({'image_name':image_name}) is None:
-            return {'ERROR':f'{image_name} does not exist!'}, 400
+        if images.find_one({'$and': [{'user_name':user_name},
+                                     {'image_name':image_name}]}) is None:
+            return {'ERROR':f'{image_name} and/or {user_name} does not exist!'}, 400
         
-        os.remove(os.path.join(f'{images.find_one({'$and':[{'image_name':image_name},
-                                                           {'user_name':user_name}]})['image_path']}', image_name))
-        images.delete_one({'$and':[{'image_name':image_name},
-                                   {'user_name':user_name}]})
+        os.remove(os.path.join(f'{images.find_one({'$and': [{'user_name':user_name},
+                                                            {'image_name':image_name}]})['image_path']}', image_name))
+        images.delete_one({'$and': [{'user_name':user_name},
+                                    {'image_name':image_name}]})
 
         return {'SUCCESS': f'{image_name} has been deleted'}, 202

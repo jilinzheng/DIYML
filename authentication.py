@@ -5,7 +5,7 @@ User authentication module.
 
 import datetime
 from flask_restful import Resource, reqparse
-from json_encode import json_encode
+from utils.json_encode import json_encode
 from database import users
 
 
