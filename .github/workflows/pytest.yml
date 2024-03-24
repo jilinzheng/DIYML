@@ -31,6 +31,10 @@ jobs:
       with:
         mongodb-version: ${{matrix.mongodb-version}}
 
+    - name: Start Flask app
+      run: |
+        python -m ${GITHUB_WORKSPACE}/diyml.py
+
     - name: Run pytest
       run: |
         python -m pytest ${GITHUB_WORKSPACE}

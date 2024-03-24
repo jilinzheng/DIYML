@@ -6,6 +6,7 @@ Main application that combines all other modules.
 from flask import Flask
 from flask_restful import Api
 from src.authentication import UserAPI
+from src.ml import TrainingAPI
 
 
 # set up flask/flask-restful
@@ -26,6 +27,7 @@ from src.data_upload import ImageAPI # pylint: disable=wrong-import-position
 # add resources to flask-restful
 api.add_resource(UserAPI, '/user')
 api.add_resource(ImageAPI,'/image')
+api.add_resource(TrainingAPI,'/model/training')
 
 
 if __name__ == '__main__':
