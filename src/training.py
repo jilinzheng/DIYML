@@ -31,8 +31,8 @@ class TrainingAPI(Resource):
                 img = resize(img, (15, 15))
                 data.append(img.flatten())
                 labels.append(ii)
-                if jj == 100: # to shorten runtime during debug
-                    break
+                #if jj == 100: # to shorten runtime during debug
+                #    break
         data = np.stack(data)
         labels = np.stack(labels)
 
