@@ -5,7 +5,7 @@ Main application that combines all other modules.
 
 from flask import Flask
 from flask_restful import Api
-from authentication import UserAPI
+from src.authentication import UserAPI
 
 
 # set up flask/flask-restful
@@ -20,7 +20,7 @@ def home():
 
 
 # importing here in order to allow data_upload module to use flask app variable
-from data_upload import ImageAPI # pylint: disable=wrong-import-position
+from src.data_upload import ImageAPI # pylint: disable=wrong-import-position
 
 
 # add resources to flask-restful

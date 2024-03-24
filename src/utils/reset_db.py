@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from database import *
+from src.utils.database import *
 
 
 def reset_db():

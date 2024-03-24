@@ -3,9 +3,11 @@ Test valid and invalid CRUD operations on ImageUpload resource.
 """
 
 
-import os
 import requests
-from utils import reset_db
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from src.utils.reset_db import reset_db
 
 
 user_url = 'http://localhost:5000/user'
