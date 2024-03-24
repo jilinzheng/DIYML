@@ -39,7 +39,7 @@ class ImageAPI(Resource):
         category = args['category']
         file = args['file']
 
-        save_location = os.path.join(os.path.dirname(__file__),
+        save_location = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                                'images',
                                f'{user_name}',
                                f'{category}',)
