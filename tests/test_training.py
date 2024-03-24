@@ -32,10 +32,10 @@ def test_create_model():
     # create model associated with user
     params = {'user_name':'testName',
               'model_name':'testModel',
-              'categories':['Apple', 'Banana']}
+              'categories':['Apple', 'Banana','Mango']}
     response = requests.post(url=training_url,
                              params=params)
 
-    print(response.content)
+    print(response.text)
 
     assert response.status_code == 201 # created

@@ -53,12 +53,14 @@ class TrainingAPI(Resource):
         data = []
         labels = []
         for ii, category in enumerate(categories):
-            for file in os.listdir(os.path.join(IMAGE_DIR, category)):
+            for jj, file in enumerate(os.listdir(os.path.join(IMAGE_DIR, category))):
                 img_path = os.path.join(IMAGE_DIR, category, file)
                 img = imread(img_path) # JPEG ONLY
                 img = resize(img, (15, 15))
                 data.append(img.flatten())
                 labels.append(ii)
+                if jj == 100: # to shorten runtime during debug
+                    break
         data = np.stack(data)
         labels = np.stack(labels)
 
@@ -79,8 +81,7 @@ class TrainingAPI(Resource):
         best_estimator = grid_search.best_estimator_
         save_location = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                                'models',
-                               f'{user_name}',
-                               f'{model_name}')
+                               f'{user_name}')
         if not os.path.exists(save_location):
              os.makedirs(save_location)
 
@@ -90,10 +91,24 @@ class TrainingAPI(Resource):
         
         # SAVE MODEL TO MODELS COLLECTION
         y_prediction = best_estimator.predict(x_test)
-        model_stats = {'accuracy':accuracy_score(y_true=y_test, y_pred=y_prediction),
-                       'precision':precision_score(y_true=y_test, y_pred=y_prediction),
-                       'recall':recall_score(y_true=y_test, y_pred=y_prediction),
-                       'f1':f1_score(y_true=y_test, y_pred=y_prediction)}
+        accuracy = accuracy_score(y_true=y_test,
+                                  y_pred=y_prediction)
+        precision = precision_score(y_true=y_test,
+                                    y_pred=y_prediction,
+                                    labels=labels,
+                                    average='weighted')
+        recall = recall_score(y_true=y_test,
+                              y_pred=y_prediction,
+                              labels=labels,
+                              average='weighted')
+        f1 = f1_score(y_true=y_test,
+                      y_pred=y_prediction,
+                      labels=labels,
+                      average='weighted')
+        model_stats = {'accuracy':accuracy,
+                       'precision':precision if type(precision) is float else precision.tolist(),
+                       'recall':recall if type(recall) is float else recall.tolist(),
+                       'f1':f1 if type(f1) is float else f1.tolist()}
 
         models.insert_one({'model_name':model_name,
                            'user_name':user_name,

@@ -44,8 +44,7 @@ class InferenceAPI(Resource):
 
         model_location = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                                'models',
-                               f'{user_name}',
-                               f'{model_name}')
+                               f'{user_name}')
         
         with open(os.path.join(model_location,
                                f'{model_name}.p'),
@@ -61,5 +60,11 @@ class InferenceAPI(Resource):
             return {'result':'apple'}, 202
         elif prediction[0] == 1:
             return {'result':'banana'}, 202
+        elif prediction[0] == 2:
+            return {'result':'grape'}, 202
+        elif prediction[0] == 3:
+            return {'result':'mango'}, 202
+        elif prediction[0] == 4:
+            return {'result':'strawberry'}, 202
 
         return json.dumps(prediction.tolist()), 202
