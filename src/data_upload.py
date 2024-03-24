@@ -85,8 +85,9 @@ class ImageAPI(Resource):
                                      {'image_name':image_name}]}) is None:
             return {'ERROR':f'{image_name} and/or {user_name} does not exist!'}, 400
         
-        os.remove(os.path.join(f'{images.find_one({'$and': [{'user_name':user_name},
-                                                            {'image_name':image_name}]})['image_path']}', image_name))
+        image_path = images.find_one({'$and': [{'user_name':user_name},
+                                               {'image_name':image_name}]})['image_path']
+        os.remove(os.path.join(image_path, image_name))
         images.delete_one({'$and': [{'user_name':user_name},
                                     {'image_name':image_name}]})
 
