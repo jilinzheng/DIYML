@@ -15,11 +15,17 @@ from sklearn.metrics import accuracy_score
 from flask_restful import Resource, reqparse
 
 
-IMAGE_DIR = './images' # need to import in the diyml(main) file
+IMAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),
+                         'images') # need to import in the diyml(main) file
 
 
 class PreprocessData(Resource):
     """ Preprocess data for training. """
+    def __init__(self):
+        self.categories = []
+        self.data = []
+        self.labels = []
+
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('categories',
