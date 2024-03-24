@@ -7,7 +7,7 @@ import requests
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from src.utils.reset_db import reset_db
+from src.utils.reset import reset
 
 
 user_url = 'http://localhost:5000/user'
@@ -18,7 +18,7 @@ files = {'file':open(os.path.join(os.path.dirname(__file__),
 
 
 def test_init():
-    reset_db()
+    reset()
 
 
 def test_create_upload():
