@@ -18,9 +18,7 @@ from utils.json_encode import json_encode
 from utils.flask_app import q
 
 
-class TrainingAPI(Resource):
-    """ Preprocess data for training. """
-    def train(self, user_name, model_name, categories, IMAGE_DIR):
+def train(self, user_name, model_name, categories, IMAGE_DIR):
         # PREPROCESSING
         data = []
         labels = []
@@ -90,6 +88,8 @@ class TrainingAPI(Resource):
                            'date_uploaded':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')})
 
 
+class TrainingAPI(Resource):
+    """ Preprocess data for training. """
     def post(self):
         """
         Produces an image classification model trained on requested categories.
@@ -119,7 +119,7 @@ class TrainingAPI(Resource):
         IMAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                          'images')
         
-        job = q.enqueue_call(func=self.train,
+        job = q.enqueue(func=train,
                              args=(user_name, model_name, categories, IMAGE_DIR),
                              result_ttl=5000)
         return {'SUCCESS': f'Model creation task {job.get_id()} added to task queue.'}, 201
