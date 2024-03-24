@@ -5,3 +5,6 @@ scikit-learn==1.4.1.post1
 scikit-image==0.22.0
 numpy==1.26.4
 requests==2.31.0
+redis==3.4.1
+rq==1.16.1
+rq-dashboard==0.6.7.2
