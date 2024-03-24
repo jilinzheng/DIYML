@@ -33,7 +33,7 @@ jobs:
 
     - name: Start Flask app
       run: |
-        python -m ${GITHUB_WORKSPACE}/diyml.py
+        python ${GITHUB_WORKSPACE}/diyml.py
 
     - name: Run pytest
       run: |

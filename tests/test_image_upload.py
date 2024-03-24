@@ -29,7 +29,7 @@ def test_create_upload():
                             params=params)
     if response.status_code == 400:
         response = requests.post(url=user_url,
-                                params=params)
+                                 params=params)
         assert response.status_code == 201 # created
 
     # then test the image uploading with the testName user

@@ -1,5 +1,5 @@
 """
-User authentication module.
+User module.
 """
 
 

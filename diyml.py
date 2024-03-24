@@ -5,8 +5,10 @@ Main application that combines all other modules.
 
 from flask import Flask
 from flask_restful import Api
-from src.authentication import UserAPI
-from src.ml import TrainingAPI
+from src.users import UserAPI
+from src.image_upload import ImageAPI
+from src.training import TrainingAPI
+from src.inference import InferenceAPI
 
 
 # set up flask/flask-restful
@@ -20,14 +22,11 @@ def home():
     return 'hello world!'
 
 
-# importing here in order to allow data_upload module to use flask app variable
-from src.data_upload import ImageAPI # pylint: disable=wrong-import-position
-
-
 # add resources to flask-restful
 api.add_resource(UserAPI, '/user')
 api.add_resource(ImageAPI,'/image')
 api.add_resource(TrainingAPI,'/model/training')
+api.add_resource(InferenceAPI,'/model/inference')
 
 
 if __name__ == '__main__':

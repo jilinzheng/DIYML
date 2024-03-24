@@ -3,7 +3,6 @@ Test valid and invalid CRUD operations on TrainingAPI resource.
 """
 
 
-import json
 import requests
 import os
 import sys
