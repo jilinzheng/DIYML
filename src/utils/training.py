@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import datetime
 import os
 import pickle
@@ -8,8 +9,8 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from flask_restful import Resource, reqparse
-from src.utils.database import models
-from src.utils.json_encode import json_encode
+from database import models
+from json_encode import json_encode
 from flask_app import q
 
 
