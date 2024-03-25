@@ -10,8 +10,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.utils.reset import reset
 
 
-user_url = 'http://localhost:5000/user'
-training_url = 'http://localhost:5000/model/training'
+user_url = 'http://127.0.0.1:5000/user'
+training_url = 'http://127.0.0.1:5000/model/training'
 
 
 def test_init():
@@ -39,7 +39,7 @@ def test_create_single_model():
     print(response.text)
 
     assert response.status_code == 201 # created
-""" 
+
 def test_create_multiple_models():
     # first create a test user testName if it doesn't exist
     params = {'user_name':'testName',
@@ -60,4 +60,4 @@ def test_create_multiple_models():
                                 params=params)
         print(response.text)
         assert response.status_code == 201 # created
- """
+ 

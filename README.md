@@ -1,16 +1,15 @@
 # Jilin Zheng // U49258796 // DIYML
 
-## Prerequisites
-
-You must have MongoDB installed locally, as well as all of the packages specified in [requirements.txt](requirements.txt).
-
 ## Instructions
 
-1. Run the [diyml.py](diyml.py) script; if you have not explicitly changed the port MongoDB serves on, you should be able to access the API at localhost:5000/.
+### Installing from source code
 
-## Scripts
-
-- [diyml.py](diyml.py): the module that ties src modules/packages together; also sets up the flask-restful app
+0. Prerequisites: MongoDB, Redis
+1. Clone this repository.
+2. cd into the repo, create and activate a virtual environment, and run `python3 -m pip install -r requirements.txt`.
+3. Start the Flask app with `python3 src/diyml.py`.
+4. Start a (or many!) Redis worker(s) with `python3 src/worker.py`.
+5. See [API documentation]() for usage.
 
 ## Database Schema
 

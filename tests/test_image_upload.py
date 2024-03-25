@@ -10,8 +10,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.utils.reset import reset
 
 
-user_url = 'http://localhost:5000/user'
-image_url = 'http://localhost:5000/image'
+user_url = 'http://127.0.0.1:5000/user'
+image_url = 'http://127.0.0.1:5000/image'
 files = {'file':open(os.path.join(os.path.dirname(__file__),
                                   'test_image.png'),
                                   'rb')}

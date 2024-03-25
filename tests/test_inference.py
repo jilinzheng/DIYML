@@ -10,7 +10,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.utils.reset import reset
 
 
-inference_url = 'http://localhost:5000/model/inference'
+inference_url = 'http://127.0.0.1:5000/model/inference'
 files = {'file':open(os.path.join(os.path.dirname(__file__),
                                   'test_banana.jpeg'),
                                   'rb')}

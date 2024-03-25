@@ -10,7 +10,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.utils.reset import reset
 
 
-url = 'http://localhost:5000/user'
+url = 'http://127.0.0.1:5000/user'
 
 
 def test_init():
