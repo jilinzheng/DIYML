@@ -1,8 +1,3 @@
-"""
-Contains TrainingAPI resource.
-"""
-
-
 import datetime
 import os
 import pickle
@@ -16,20 +11,9 @@ from flask_restful import Resource, reqparse
 from utils.database import models
 from utils.json_encode import json_encode
 from flask_app import q
-from utils.training import train
 
 
-class TrainingAPI(Resource):
-    """ Preprocess data for training. """
-    
-
-
-    def post(self):
-        """
-        Produces an image classification model trained on requested categories.
-        """
-        """ 
-        def train(self, user_name, model_name, categories, IMAGE_DIR):
+def train(self, user_name, model_name, categories, IMAGE_DIR):
         # PREPROCESSING
             data = []
             labels = []
@@ -97,36 +81,3 @@ class TrainingAPI(Resource):
                             'categories_trained':categories,
                             'model_stats': model_stats,
                             'date_uploaded':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')})
-        """
-        parser = reqparse.RequestParser()
-        parser.add_argument('user_name',
-                            type=str,
-                            location='args',
-                            required=True,
-                            help='You must specify an user.')
-        parser.add_argument('model_name',
-                            type=str,
-                            location='args',
-                            required=True,
-                            help='You must provide a model name.')
-        parser.add_argument('categories',
-                            type=str,
-                            required=True,
-                            location='args',
-                            help='You must specify categories to train on.',
-                            action='append')
-        args = parser.parse_args()
-
-        user_name = args['user_name']
-        model_name = args['model_name']
-        categories = args['categories']
-        IMAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),
-                         'images')
-        
-        job = q.enqueue_call(func=train,
-                             args=(user_name, model_name, categories, IMAGE_DIR),
-                             result_ttl=5000)
-        return {'SUCCESS': f'Model creation task {job.get_id()} added to task queue.'}, 201
-
-        return json_encode(models.find_one({'$and': [{'user_name':user_name},
-                                                     {'model_name':model_name}]})), 201
