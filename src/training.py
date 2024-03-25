@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from flask_restful import Resource, reqparse
-from utils.database import models
+from database import models
 from utils.json_encode import json_encode
 from flask_app import q
 #import utils.training

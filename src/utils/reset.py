@@ -1,6 +1,6 @@
 from os import path, remove
 import shutil
-from src.utils.database import *
+from src.database import *
 
 
 def reset():
