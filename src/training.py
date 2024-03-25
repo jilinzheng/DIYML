@@ -16,12 +16,13 @@ from flask_restful import Resource, reqparse
 from database import models
 from utils.json_encode import json_encode
 from flask_app import q
+import worker
 
 
 class TrainingAPI(Resource):
     """ Preprocess data for training. """
     
-    def train(self, user_name, model_name, categories, IMAGE_DIR):
+    """ def train(self, user_name, model_name, categories, IMAGE_DIR):
         # PREPROCESSING
         data = []
         labels = []
@@ -88,7 +89,7 @@ class TrainingAPI(Resource):
                         'model_path':save_location,
                         'categories_trained':categories,
                         'model_stats': model_stats,
-                        'date_uploaded':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')})
+                        'date_uploaded':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')}) """
 
     def post(self):
         """
@@ -119,7 +120,7 @@ class TrainingAPI(Resource):
         IMAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                          'images')
         
-        job = q.enqueue_call(func="self.train",
+        job = q.enqueue_call(func="worker.train",
                              args=(user_name, model_name, categories, IMAGE_DIR),
                              result_ttl=5000)
         return {'SUCCESS': f'Model creation task {job.get_id()} added to task queue.'}, 201
