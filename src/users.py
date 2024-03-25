@@ -5,8 +5,8 @@ User module.
 
 import datetime
 from flask_restful import Resource, reqparse
-from utils.json_encode import json_encode
-from database import mongo_connect
+from .utils.json_encode import json_encode
+from .database import mongo_connect
 
 
 def init_parser(require_pass=False):

@@ -10,7 +10,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
-from database import mongo_connect
+from .database import mongo_connect
 
 listen = ['default']
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')

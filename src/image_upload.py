@@ -7,8 +7,8 @@ import datetime
 import os
 from flask_restful import Resource, reqparse
 import werkzeug
-from database import mongo_connect
-from utils.json_encode import json_encode
+from .database import mongo_connect
+from .utils.json_encode import json_encode
 
 
 class ImageAPI(Resource):

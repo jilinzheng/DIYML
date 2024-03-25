@@ -3,20 +3,9 @@ Contains TrainingAPI resource.
 """
 
 
-import datetime
-import os
-import pickle
-from skimage.io import imread
-from skimage.transform import resize
-import numpy as np
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
 from flask_restful import Resource, reqparse
-from database import mongo_connect
-from utils.json_encode import json_encode
-from flask_app import q
-import worker
+from .utils.json_encode import json_encode
+from src import q
 
 
 class TrainingAPI(Resource):
