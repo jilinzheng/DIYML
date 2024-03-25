@@ -7,7 +7,7 @@ Collections: users, images, and models.
 from pymongo import MongoClient
 
 
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb://localhost:27017/', connect=False)
 db = client['diyml_db']
 users = db['users']
 images = db['images']
