@@ -16,7 +16,9 @@ listen = ['default']
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
 conn = redis.from_url(redis_url)
 
-def train(user_name, model_name, categories, IMAGE_DIR):
+def train(user_name, model_name, categories):#, IMAGE_DIR):
+    IMAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),
+                             'images')
     # PREPROCESSING
     data = []
     labels = []
