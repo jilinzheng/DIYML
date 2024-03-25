@@ -1,7 +1,8 @@
+from __future__ import absolute_import
 import os
 import redis
 from rq import Worker, Queue, Connection
-from .. import training
+import src.training
 
 listen = ['default']
 redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
