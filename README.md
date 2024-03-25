@@ -1,5 +1,11 @@
 # Jilin Zheng // U49258796 // DIYML
 
+## Demos
+
+Below are video demonstrations of certain functions of the API, also serving as course assessments:
+
+- [Task Queue Implementation](https://youtu.be/RKGiA2wFB6o)
+
 ## Instructions
 
 ### Installing from source code
