@@ -3,7 +3,7 @@ Main application that combines all other modules.
 """
 
 
-from utils.flask_app import app, api
+from flask_app import app, api
 
 
 @app.route('/', methods=['GET'])

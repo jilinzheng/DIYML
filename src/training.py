@@ -15,7 +15,7 @@ from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_sc
 from flask_restful import Resource, reqparse
 from utils.database import models
 from utils.json_encode import json_encode
-from utils.flask_app import q
+from flask_app import q
 
 
 def train(self, user_name, model_name, categories, IMAGE_DIR):
