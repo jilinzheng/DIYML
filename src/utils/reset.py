@@ -1,9 +1,11 @@
 from os import path, remove
 import shutil
-from src.database import *
+from src.database import mongo_connect
 
 
 def reset():
+    [users, images, models] = mongo_connect()
+
     users.delete_many({})
     images.delete_many({})
     models.delete_many({})

@@ -7,7 +7,7 @@ import datetime
 import os
 from flask_restful import Resource, reqparse
 import werkzeug
-from database import images
+from database import mongo_connect
 from utils.json_encode import json_encode
 
 
@@ -51,6 +51,8 @@ class ImageAPI(Resource):
 
         # allows multiple users to have same filenames,
         # but one user cannot have multiple files with the same name
+        [users, images, models] = mongo_connect()
+
         if images.find_one({'$and': [{'user_name':user_name},
                                      {'image_name':file.filename}]}) is not None:
             return {'ERROR':f'{file.filename} is NOT unique to {user_name}!'}, 400
@@ -80,6 +82,8 @@ class ImageAPI(Resource):
 
         user_name = args['user_name']
         image_name = args['image_name']
+
+        [users, images, models] = mongo_connect()
 
         if images.find_one({'$and': [{'user_name':user_name},
                                      {'image_name':image_name}]}) is None:

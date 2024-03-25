@@ -6,7 +6,7 @@ User module.
 import datetime
 from flask_restful import Resource, reqparse
 from utils.json_encode import json_encode
-from database import users
+from database import mongo_connect
 
 
 def init_parser(require_pass=False):
@@ -40,6 +40,8 @@ class UserAPI(Resource):
         args = parser.parse_args()
         user_name = args['user_name']
 
+        [users, images, models] = mongo_connect()
+
         if users.find_one({'user_name': user_name}) is None:
             return {'ERROR': f'{user_name} does not exist!'}, 400
 
@@ -53,6 +55,8 @@ class UserAPI(Resource):
         args = parser.parse_args()
         user_name = args['user_name']
         user_pass = args['user_pass']
+
+        [users, images, models] = mongo_connect()
 
         if users.find_one({'user_name': user_name}) is not None:
             return {'ERROR': f'{user_name} is NOT unique!'}, 400
@@ -72,6 +76,8 @@ class UserAPI(Resource):
         user_name = args['user_name']
         user_pass = args['user_pass']
 
+        [users, images, models] = mongo_connect()
+
         if users.find_one({'user_name': user_name}) is None:
             return {'ERROR': f'{user_name} does not exist!'}, 400
 
@@ -87,6 +93,8 @@ class UserAPI(Resource):
         parser = init_parser(require_pass=False)
         args = parser.parse_args()
         user_name = args['user_name']
+
+        [users, images, models] = mongo_connect()
 
         if users.find_one({'user_name': user_name}) is None:
             return {'ERROR': f'{user_name} does not exist!'}, 400

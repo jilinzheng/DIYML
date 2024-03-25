@@ -10,7 +10,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
-from database import models
+from database import mongo_connect
 
 listen = ['default']
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
@@ -77,6 +77,8 @@ def train(user_name, model_name, categories, IMAGE_DIR):
                 'precision':precision if type(precision) is float else precision.tolist(),
                 'recall':recall if type(recall) is float else recall.tolist(),
                 'f1':f1 if type(f1) is float else f1.tolist()}
+
+    [users, images, models] = mongo_connect()
 
     models.insert_one({'model_name':model_name,
                     'user_name':user_name,
