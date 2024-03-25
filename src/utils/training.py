@@ -13,7 +13,7 @@ from utils.json_encode import json_encode
 from flask_app import q
 
 
-def train(self, user_name, model_name, categories, IMAGE_DIR):
+def train(user_name, model_name, categories, IMAGE_DIR):
         # PREPROCESSING
             data = []
             labels = []

@@ -123,7 +123,7 @@ class TrainingAPI(Resource):
         IMAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                          'images')
         
-        job = q.enqueue_call(func=train,
+        job = q.enqueue_call(func='utils.training.train',
                              args=(user_name, model_name, categories, IMAGE_DIR),
                              result_ttl=5000)
         return {'SUCCESS': f'Model creation task {job.get_id()} added to task queue.'}, 201
