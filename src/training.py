@@ -16,7 +16,6 @@ from flask_restful import Resource, reqparse
 from database import models
 from utils.json_encode import json_encode
 from flask_app import q
-#import utils.training
 
 
 class TrainingAPI(Resource):
