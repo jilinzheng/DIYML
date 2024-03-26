@@ -5,10 +5,12 @@ Data uploading module, responsible for dataset/data management and labeling.
 
 import datetime
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask_restful import Resource, reqparse
 import werkzeug
-from .database import mongo_connect
-from .utils.json_encode import json_encode
+from src.database import mongo_connect
+from src.utils.json_encode import json_encode
 
 
 class ImageAPI(Resource):
@@ -51,7 +53,7 @@ class ImageAPI(Resource):
 
         # allows multiple users to have same filenames,
         # but one user cannot have multiple files with the same name
-        [users, images, models] = mongo_connect()
+        images = mongo_connect()[1]
 
         if images.find_one({'$and': [{'user_name':user_name},
                                      {'image_name':file.filename}]}) is not None:
@@ -83,7 +85,7 @@ class ImageAPI(Resource):
         user_name = args['user_name']
         image_name = args['image_name']
 
-        [users, images, models] = mongo_connect()
+        images = mongo_connect()[1]
 
         if images.find_one({'$and': [{'user_name':user_name},
                                      {'image_name':image_name}]}) is None:

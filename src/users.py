@@ -3,10 +3,13 @@ User module.
 """
 
 
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import datetime
 from flask_restful import Resource, reqparse
-from .utils.json_encode import json_encode
-from .database import mongo_connect
+from src.utils.json_encode import json_encode
+from src.database import mongo_connect
 
 
 def init_parser(require_pass=False):
@@ -40,7 +43,7 @@ class UserAPI(Resource):
         args = parser.parse_args()
         user_name = args['user_name']
 
-        [users, images, models] = mongo_connect()
+        users = mongo_connect()[0]
 
         if users.find_one({'user_name': user_name}) is None:
             return {'ERROR': f'{user_name} does not exist!'}, 400
@@ -56,7 +59,7 @@ class UserAPI(Resource):
         user_name = args['user_name']
         user_pass = args['user_pass']
 
-        [users, images, models] = mongo_connect()
+        users = mongo_connect()[0]
 
         if users.find_one({'user_name': user_name}) is not None:
             return {'ERROR': f'{user_name} is NOT unique!'}, 400
@@ -76,7 +79,7 @@ class UserAPI(Resource):
         user_name = args['user_name']
         user_pass = args['user_pass']
 
-        [users, images, models] = mongo_connect()
+        users = mongo_connect()[0]
 
         if users.find_one({'user_name': user_name}) is None:
             return {'ERROR': f'{user_name} does not exist!'}, 400
@@ -94,7 +97,7 @@ class UserAPI(Resource):
         args = parser.parse_args()
         user_name = args['user_name']
 
-        [users, images, models] = mongo_connect()
+        users = mongo_connect()[0]
 
         if users.find_one({'user_name': user_name}) is None:
             return {'ERROR': f'{user_name} does not exist!'}, 400

@@ -1,24 +1,33 @@
-import os
-import redis
-from rq import Worker, Queue, Connection
+"""
+Redis worker.
+"""
 
+
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import redis
 import datetime
 import pickle
+from rq import Worker, Queue, Connection
 from skimage.io import imread
 from skimage.transform import resize
 import numpy as np
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
-from .database import mongo_connect
+import src.database as database
+
 
 listen = ['default']
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
 conn = redis.from_url(redis_url)
 
-def train(user_name, model_name, categories):#, IMAGE_DIR):
+
+def train(user_name, model_name, categories):
     IMAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                              'images')
+
     # PREPROCESSING
     data = []
     labels = []
@@ -62,32 +71,71 @@ def train(user_name, model_name, categories):#, IMAGE_DIR):
     # SAVE MODEL TO MODELS COLLECTION
     y_prediction = best_estimator.predict(x_test)
     accuracy = accuracy_score(y_true=y_test,
-                            y_pred=y_prediction)
+                              y_pred=y_prediction)
     precision = precision_score(y_true=y_test,
                                 y_pred=y_prediction,
                                 labels=labels,
                                 average='weighted')
     recall = recall_score(y_true=y_test,
-                        y_pred=y_prediction,
-                        labels=labels,
-                        average='weighted')
+                          y_pred=y_prediction,
+                          labels=labels,
+                          average='weighted')
     f1 = f1_score(y_true=y_test,
-                y_pred=y_prediction,
-                labels=labels,
-                average='weighted')
+                  y_pred=y_prediction,
+                  labels=labels,
+                  average='weighted')
     model_stats = {'accuracy':accuracy,
-                'precision':precision if type(precision) is float else precision.tolist(),
-                'recall':recall if type(recall) is float else recall.tolist(),
-                'f1':f1 if type(f1) is float else f1.tolist()}
+                   'precision':precision if type(precision) is float else precision.tolist(),
+                   'recall':recall if type(recall) is float else recall.tolist(),
+                   'f1':f1 if type(f1) is float else f1.tolist()}
 
-    [users, images, models] = mongo_connect()
+    models = database.mongo_connect()[2]
 
     models.insert_one({'model_name':model_name,
-                    'user_name':user_name,
-                    'model_path':save_location,
-                    'categories_trained':categories,
-                    'model_stats': model_stats,
-                    'date_uploaded':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')})
+                       'user_name':user_name,
+                        'categories_trained':categories,
+                        'model_stats': model_stats,
+                        'date_uploaded':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')})
+
+
+def save_inference(user_name, prediction, inference_id):
+    inferences = database.mongo_connect()[3]
+
+    inferences.insert_one({'inference_id':inference_id,
+                           'user_name':user_name,
+                           'prediction':prediction,
+                           'date_created':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')})
+
+
+def inference(user_name, model_name, filename, inference_id):
+    model_location = os.path.join(os.path.dirname(os.path.dirname(__file__)),
+                                  'models',
+                                  f'{user_name}')
+    
+    with open(os.path.join(model_location,
+                           f'{model_name}.p'),
+                           'rb') as f:
+        model = pickle.load(f)
+
+    upload_location = os.path.join(os.path.dirname(os.path.dirname(__file__)),
+                                  'uploads')
+    with open(os.path.join(upload_location,
+                           filename),
+                           'rb') as file:
+        file = imread(file)
+        file = resize(file, (15, 15))
+        file = file.flatten()
+        
+        prediction = model.predict([file])
+        if prediction[0] == 0:
+            save_inference(user_name, 'apple', inference_id)
+        elif prediction[0] == 1:
+            save_inference(user_name, 'banana', inference_id)
+        elif prediction[0] == 2:
+            save_inference(user_name, 'mango', inference_id)
+    
+    os.remove(os.path.join(upload_location, filename))
+
 
 if __name__ == '__main__':
     with Connection(conn):

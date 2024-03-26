@@ -1,7 +1,6 @@
 from flask import Flask
 from flask_restful import Api
 from rq import Queue
-from rq.job import Job
 from .worker import conn
 import rq_dashboard
 

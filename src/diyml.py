@@ -3,11 +3,14 @@ Main application that combines all other modules.
 """
 
 
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src import app, api
-from .users import UserAPI
-from .image_upload import ImageAPI
-from .training import TrainingAPI
-from .inference import InferenceAPI
+from src.users import UserAPI
+from src.image_upload import ImageAPI
+from src.training import TrainingAPI
+from src.inference import InferenceAPI
 
 
 @app.route('/', methods=['GET'])
@@ -23,4 +26,4 @@ api.add_resource(InferenceAPI,'/model/inference')
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)

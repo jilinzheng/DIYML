@@ -4,11 +4,12 @@ from src.database import mongo_connect
 
 
 def reset():
-    [users, images, models] = mongo_connect()
+    [users, images, models, inferences] = mongo_connect()
 
     users.delete_many({})
     images.delete_many({})
     models.delete_many({})
+    inferences.delete_many({})
     test_path = path.join(path.dirname(path.dirname(path.dirname(__file__))),
                 'images',
                 'testName')
