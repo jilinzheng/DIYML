@@ -4,12 +4,14 @@ Collections: users, images, and models.
 """
 
 
+import os
 from pymongo import MongoClient
 
 
 # https://pymongo.readthedocs.io/en/stable/faq.html#using-pymongo-with-multiprocessing
 def mongo_connect():
-    client = MongoClient('mongodb://127.0.0.1:27017/')
+    MONGODB = os.environ.get('MONGODB','127.0.0.1')
+    client = MongoClient(f'mongodb://{MONGODB}:27017/')
     db = client['diyml_db']
     users = db['users']
     images = db['images']
