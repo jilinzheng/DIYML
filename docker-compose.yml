@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  
+  flask:
+    build: .
+    container_name: flask_c
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/code
+  
+  redis:
+    image: "redis:7.2.4"
+  
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
