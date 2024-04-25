@@ -1,0 +1,9 @@
+venv
+__pycache__
+.github
+.pytest_cache
+src/__pycache__
+src/utils/__pycache__
+tests/__pycache__
+tests
+ml.py

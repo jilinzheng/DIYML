@@ -1,3 +1,8 @@
+"""
+Reset MongoDB database and image directory.
+"""
+
+
 from os import path, remove
 import shutil
 from src.database import mongo_connect

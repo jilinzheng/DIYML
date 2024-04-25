@@ -1,5 +1,7 @@
 """
 Image classification tutorial script.
+Source: https://youtu.be/il8dMDlXrIE
+Adopted in ../worker.py
 """
 
 

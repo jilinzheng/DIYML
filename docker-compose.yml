@@ -1,24 +1,23 @@
-version: "3.8"
-
 services:
 
   redis:
+    container_name: redis
     image: redis:7.2.4
     ports:
       - 6379:6379
     environment:
       REDIS: redis
-  
+      REDIS_URL: "redis://redis:6379"
+
   mongodb:
+    container_name: mongodb
     image: mongo:7.0.2
     environment:
       MONGODB: mongodb
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: admin
     ports:
-      - "0.0.0.0:27017:27017"
-#    networks:
-#      - MONGO
+      - 27017:27017
     volumes:
       - type: volume
         source: MONGO_DATA
@@ -28,6 +27,7 @@ services:
         target: /data/configdb
 
   mongo-express:
+    container_name: mongo-express
     image: mongo-express:1.0.2
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: admin
@@ -35,29 +35,38 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongodb
       ME_CONFIG_MONGODB_PORT: "27017"
     ports:
-      - "0.0.0.0:8081:8081"
-#    networks:
-#      - MONGO
+      - 8081:8081
     depends_on:
       - mongodb
 
   flask:
+    container_name: flask
     build: .
-    container_name: flask_c
     ports:
       - 5000:5000
     volumes:
-      - .:/diyml
+      - DIYML_DATA:/diyml
+    environment:
+      REDIS: redis
+      REDIS_URL: "redis://redis:6379"
     depends_on:
       - redis
       - mongodb
+  
+  worker:
+    container_name: worker
+    build: ./src
+    volumes:
+      - DIYML_DATA:/diyml
+    depends_on:
+      - redis
+      - flask
 
-#networks:
-#  MONGO:
-#    name: MONGO
 
 volumes:
   MONGO_DATA:
     name: MONGO_DATA
   MONGO_CONFIG:
     name: MONGO_CONFIG
+  DIYML_DATA:
+    name: DIYML_DATA

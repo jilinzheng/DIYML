@@ -44,9 +44,6 @@ class InferenceAPI(Resource):
 
         return json_encode(inferences.find_one({'inference_id':inference_id})), 202
 
-        return json_encode(inferences.find_one({'$and': [{'user_name':user_name},
-                                                         {'inference_id':inference_id}]})), 202
-
     def post(self):
         """
         Send image file to be inferenced with selected user's selected model.
@@ -89,30 +86,3 @@ class InferenceAPI(Resource):
                              result_ttl=5000)
         
         return {'SUCCESS': f'Inference task {job.get_id()} added to task queue.'}, 201
-
-        model_location = os.path.join(os.path.dirname(os.path.dirname(__file__)),
-                               'models',
-                               f'{user_name}')
-        
-        with open(os.path.join(model_location,
-                               f'{model_name}.p'),
-                               'rb') as f:
-            model = pickle.load(f)
-
-        file = imread(file)
-        file = resize(file, (15, 15))
-        file = file.flatten()
-
-        prediction = model.predict([file])
-        if prediction[0] == 0:
-            return {'result':'apple'}, 202
-        elif prediction[0] == 1:
-            return {'result':'banana'}, 202
-        elif prediction[0] == 2:
-            return {'result':'grape'}, 202
-        elif prediction[0] == 3:
-            return {'result':'mango'}, 202
-        elif prediction[0] == 4:
-            return {'result':'strawberry'}, 202
-
-        return json.dumps(prediction.tolist()), 202
