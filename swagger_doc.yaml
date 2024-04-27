@@ -1,0 +1,91 @@
+openapi: 3.0.0
+
+
+info:
+  version: "0.0.1"
+  title: DIYML
+  description: Do-It-Yourself Machine Learning! An easy-to-use API that enables rapid generation of image-classification models. You will notice many parts of the API are only at a basic, working level; the reason for that is this API serves more as a proof-of-concept and exploratory project as part of coursework. Built Spring 2024 for EC530 Software Engineering Principles @ Boston University.
+
+
+servers:
+  - url: http://127.0.0.1
+    description: as this API is only meant to be brought up locally/via containers, the url is simply the loopback ip 127.0.0.1, a.k.a. localhost...
+
+
+paths:
+  /user:
+    post:
+      tags:
+        - User Management
+      summary: Creates a new user.
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: user_pass
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        201:
+          description: Returns the new user's database document.
+        400:
+          description: The user_name specified is NOT unique and could not be created.
+    get:
+      tags:
+        - User Management
+      summary: Gets a specified user's information.
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Returns the specified user's database document.
+        400:
+          description: The specified user does not exist.
+    put:
+      tags:
+        - User Management
+      summary: Updates a specified user's password.
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: user_pass
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        202:
+          description: Returns the specified user's updated database document.
+        400:
+          description: The specified user does not exist.
+        
+    delete:
+      tags:
+        - User Management
+      summary: Deletes a specified user.
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+      responses:
+        202:
+          description: Returns a success message that the specified user has been deleted.
+        400:
+          description: The specified user does not exist within the database.
+
+  /image:
+
+  /model/training:
+
+  /model/inference:
