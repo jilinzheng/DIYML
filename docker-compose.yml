@@ -5,9 +5,9 @@ services:
     image: redis:7.2.4
     ports:
       - 6379:6379
-    environment:
-      REDIS: redis
-      REDIS_URL: "redis://redis:6379"
+    #environment:
+      #REDIS: redis
+      #REDIS_URL: "redis://redis:6379"
 
   mongodb:
     container_name: mongodb
@@ -40,6 +40,7 @@ services:
       - mongodb
 
   flask:
+    platform: linux/amd64
     container_name: flask
     build: .
     ports:
@@ -53,14 +54,14 @@ services:
       - redis
       - mongodb
   
-  worker:
-    container_name: worker
-    build: ./src
-    volumes:
-      - DIYML_DATA:/diyml
-    depends_on:
-      - redis
-      - flask
+  #worker:
+    #container_name: worker
+    #build: ./src
+    #volumes:
+      #- DIYML_DATA:/diyml
+    #depends_on:
+      #- redis
+      #- flask
 
 
 volumes:
