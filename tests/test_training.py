@@ -63,4 +63,3 @@ def test_create_multiple_models():
                                 params=params)
         print(response.text)
         assert response.status_code == 201 # created
- 
