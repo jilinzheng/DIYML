@@ -22,7 +22,7 @@ def init_parser(require_pass=False):
                         location='args',
                         required=True,
                         help='You must specify a user_name.')
-    
+
     if require_pass:
         parser.add_argument('user_pass',
                             type=str,

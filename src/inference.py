@@ -6,12 +6,8 @@ Process inference requests.
 import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import pickle
-import json
 from flask_restful import Resource, reqparse
 import werkzeug
-from skimage.io import imread
-from skimage.transform import resize
 from src import q
 from src.database import mongo_connect
 from src.utils.json_encode import json_encode
@@ -36,7 +32,7 @@ class InferenceAPI(Resource):
                             help='You must provide an inference id.')
         args = parser.parse_args()
 
-        user_name = args['user_name']
+        #user_name = args['user_name']
         inference_id = args['inference_id']
         args = parser.parse_args()
 
@@ -84,5 +80,5 @@ class InferenceAPI(Resource):
         job = q.enqueue_call(func="worker.inference",
                              args=(user_name, model_name, file.filename, inference_id),
                              result_ttl=5000)
-        
+
         return {'SUCCESS': f'Inference task {job.get_id()} added to task queue.'}, 201

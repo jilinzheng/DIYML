@@ -1,9 +1,14 @@
+"""
+Initialize Flask, Flask-RESTful, and Redis
+"""
+
+
 import os
 from flask import Flask
 from flask_restful import Api
 from rq import Queue
-from .worker import conn
 import rq_dashboard
+from .worker import conn
 
 
 # flask and flask-restful

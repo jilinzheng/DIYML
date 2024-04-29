@@ -3,12 +3,13 @@ Reset MongoDB database and image directory.
 """
 
 
-from os import path, remove
+from os import path
 import shutil
 from src.database import mongo_connect
 
 
 def reset():
+    """ Reset database """
     [users, images, models, inferences] = mongo_connect()
 
     users.delete_many({})

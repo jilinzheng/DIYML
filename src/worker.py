@@ -5,10 +5,10 @@ Redis worker.
 
 import os
 import sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import redis
 import datetime
 import pickle
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import redis
 from rq import Worker, Queue, Connection
 from skimage.io import imread
 from skimage.transform import resize
@@ -22,12 +22,10 @@ import src.database as database
 listen = ['default']
 redis_url = os.getenv('REDIS_URL', 'redis://localhost:6379')
 conn = redis.from_url(redis_url)
-
+IMAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'images')
 
 def train(user_name, model_name, categories):
-    IMAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),
-                             'images')
-
+    """ Train models with given categories """
     # PREPROCESSING
     data = []
     labels = []
@@ -49,7 +47,7 @@ def train(user_name, model_name, categories):
                                                 test_size=0.2,
                                                 shuffle=True,
                                                 stratify=labels)
-    
+
     classifier = SVC()
     parameters = [{'gamma': [0.01, 0.001, 0.0001],
                 'C': [1, 10, 100, 1000]}] # training 12 image classifiers
@@ -67,7 +65,7 @@ def train(user_name, model_name, categories):
     pickle.dump(best_estimator,
                 open(os.path.join(save_location,
                                 f'{model_name}.p'), 'wb'))
-    
+
     # SAVE MODEL TO MODELS COLLECTION
     y_prediction = best_estimator.predict(x_test)
     accuracy = accuracy_score(y_true=y_test,
@@ -99,19 +97,22 @@ def train(user_name, model_name, categories):
 
 
 def save_inference(user_name, prediction, inference_id):
+    """ Save inference to database """
     inferences = database.mongo_connect()[3]
 
     inferences.insert_one({'inference_id':inference_id,
                            'user_name':user_name,
                            'prediction':prediction,
-                           'date_created':datetime.datetime.now().strftime('%Y/%m/%d, %H:%M:%S EST')})
+                           'date_created':datetime.datetime.now().
+                           strftime('%Y/%m/%d, %H:%M:%S EST')})
 
 
 def inference(user_name, model_name, filename, inference_id):
+    """ Infer on user-uploaded image with selected model """
     model_location = os.path.join(os.path.dirname(os.path.dirname(__file__)),
                                   'models',
                                   f'{user_name}')
-    
+
     with open(os.path.join(model_location,
                            f'{model_name}.p'),
                            'rb') as f:
@@ -125,7 +126,7 @@ def inference(user_name, model_name, filename, inference_id):
         file = imread(file)
         file = resize(file, (15, 15))
         file = file.flatten()
-        
+
         prediction = model.predict([file])
         if prediction[0] == 0:
             save_inference(user_name, 'apple', inference_id)
@@ -133,7 +134,7 @@ def inference(user_name, model_name, filename, inference_id):
             save_inference(user_name, 'banana', inference_id)
         elif prediction[0] == 2:
             save_inference(user_name, 'mango', inference_id)
-    
+
     os.remove(os.path.join(upload_location, filename))
 
 

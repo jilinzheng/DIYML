@@ -8,9 +8,11 @@ import os
 from pymongo import MongoClient
 
 
+MONGODB = os.environ.get('MONGODB','127.0.0.1')
+
 # https://pymongo.readthedocs.io/en/stable/faq.html#using-pymongo-with-multiprocessing
 def mongo_connect():
-    MONGODB = os.environ.get('MONGODB','127.0.0.1')
+    """ Connect to MongoDB """
     client = MongoClient(f'mongodb://{MONGODB}:27017/')
     db = client['diyml_db']
     users = db['users']

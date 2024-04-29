@@ -7,7 +7,6 @@ import os
 import sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask_restful import Resource, reqparse
-from src.utils.json_encode import json_encode
 from src import q
 
 
@@ -44,8 +43,5 @@ class TrainingAPI(Resource):
         job = q.enqueue_call(func="worker.train",
                              args=(user_name, model_name, categories),
                              result_ttl=5000)
-        
-        return {'SUCCESS': f'Model creation task {job.get_id()} added to task queue.'}, 201
 
-        return json_encode(models.find_one({'$and': [{'user_name':user_name},
-                                                     {'model_name':model_name}]})), 201
+        return {'SUCCESS': f'Model creation task {job.get_id()} added to task queue.'}, 201

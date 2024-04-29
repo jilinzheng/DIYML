@@ -16,9 +16,7 @@ from src.utils.json_encode import json_encode
 class ImageAPI(Resource):
     """ API for all image-related functions. """
     def post(self):
-        """
-        Save an image (file) associated with an user to ./images/{user_name}/{category}/{file.filename}.
-        """
+        """ Save an user-uploaded image """
         parser = reqparse.RequestParser()
         parser.add_argument('user_name',
                             type=str,
@@ -46,7 +44,7 @@ class ImageAPI(Resource):
                                f'{user_name}',
                                f'{category}',)
         if not os.path.exists(save_location):
-             os.makedirs(save_location)
+            os.makedirs(save_location)
 
         file.save(os.path.join(save_location,
                                f'{file.filename}'))
@@ -69,6 +67,7 @@ class ImageAPI(Resource):
                                                      {'image_name':file.filename}]})), 201
 
     def delete(self):
+        """ Delete an image """
         parser = reqparse.RequestParser()
         parser.add_argument('user_name',
                             type=str,
@@ -90,7 +89,7 @@ class ImageAPI(Resource):
         if images.find_one({'$and': [{'user_name':user_name},
                                      {'image_name':image_name}]}) is None:
             return {'ERROR':f'{image_name} and/or {user_name} does not exist!'}, 400
-        
+
         image_path = images.find_one({'$and': [{'user_name':user_name},
                                                {'image_name':image_name}]})['image_path']
         os.remove(os.path.join(image_path, image_name))

@@ -16,7 +16,7 @@ from src.inference import InferenceAPI
 @app.route('/', methods=['GET'])
 def home():
     """ Temporary route for debug purposes. """
-    return f'hello world!'
+    return 'hello world!'
 
 
 api.add_resource(UserAPI, '/user')
