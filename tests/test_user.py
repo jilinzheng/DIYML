@@ -24,6 +24,7 @@ def test_create_user():
                'user_pass':'testPass'}
     response = requests.post(url=URL,
                              params=params)
+    print(response.content)
     assert response.status_code == 201 # created
 
 
