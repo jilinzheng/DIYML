@@ -21,7 +21,7 @@ Prerequisites: MongoDB, Redis
 2. cd into the repo, create and activate a virtual environment, and run `python3 -m pip install -r requirements.txt`.
 3. Start the Flask app with `python3 src/diyml.py`.
 4. Start a (or many!) Redis worker(s) with `python3 src/worker.py`.
-5. See [API documentation](https://app.swaggerhub.com/apis/Jilin/DIYML/1.0.0) for usage.
+5. See [API documentation](https://app.swaggerhub.com/apis-docs/Jilin/DIYML/1.0.0) for usage.
 
 ### Installing from Docker image
 
