@@ -2,12 +2,15 @@ openapi: 3.0.0
 
 
 info:
-  version: "0.0.1"
+  version: 0.0.0
   title: DIYML
   description: Do-It-Yourself Machine Learning! An easy-to-use API that enables rapid generation of image-classification models. You will notice many parts of the API are only at a basic, working level; the reason for that is this API serves more as a proof-of-concept and exploratory project as part of coursework. Built Spring 2024 for EC530 Software Engineering Principles @ Boston University.
 
 
 servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Jilin/DIYML/0.0.0
   - url: http://127.0.0.1
     description: as this API is only meant to be brought up locally/via containers, the url is simply the loopback ip 127.0.0.1, a.k.a. localhost...
 
@@ -69,7 +72,6 @@ paths:
           description: Returns the specified user's updated database document.
         400:
           description: The specified user does not exist.
-        
     delete:
       tags:
         - User Management
@@ -78,6 +80,8 @@ paths:
         - name: user_name
           in: query
           required: true
+          schema:
+            type: string
       responses:
         202:
           description: Returns a success message that the specified user has been deleted.
@@ -85,7 +89,123 @@ paths:
           description: The specified user does not exist within the database.
 
   /image:
+    post:
+      tags:
+        - Image Upload
+      summary: Upload an image.
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: category
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: file
+          in: query
+          required: true
+          schema:
+            type: string
+            format: binary
+      responses:
+        201:
+          description: Returns the newly-uploaded image's database document.
+        400:
+          description: The image name is not unique.
+    delete:
+      tags:
+        - Image Upload
+      summary: Delete a previously uploaded image.
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: image_name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        202:
+          description: Returns an 'image successfully deleted' message.
+        400:
+          description: The user_name and/or image_name does not exist (or the image does not belong to the specified user).
 
   /model/training:
+    post:
+      tags:
+        - Model Training
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: model_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: categories
+          in: query
+          required: true
+          schema:
+            type: array
+            minItems: 2
+            items:
+              type: string
+      responses:
+        201:
+          description: Returns success message that the model training task was added to the task queue.
 
   /model/inference:
+    post:
+      tags:
+        - Inference Requests
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: model_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: file
+          in: query
+          required: true
+          schema:
+            type: string
+            format: binary
+        - name: inference_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        201:
+          description: Returns a success message that the inference request has been added to the task queue.
+    get:
+      tags:
+        - Inference Requests
+      parameters:
+        - name: user_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: inference_id
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        202:
+          description: Returns the inference request's inference results from the database.
