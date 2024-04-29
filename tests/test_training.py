@@ -30,7 +30,7 @@ def test_create_single_model():
         response = requests.post(url=USER_URL,
                                 params=params)
         assert response.status_code == 201 # created
-    
+
     # create model associated with user
     params = {'user_name':'testName',
               'model_name':'testModel',

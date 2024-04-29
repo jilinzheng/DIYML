@@ -11,7 +11,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from src.utils.reset import reset
 
 
-inference_url = 'http://127.0.0.1:5000/model/inference'
+INFERENCE_URL = 'http://127.0.0.1:5000/model/inference'
 files = {'file':open(os.path.join(os.path.dirname(__file__),
                                   'test_banana.jpeg'),
                                   'rb')}
@@ -29,7 +29,7 @@ def test_create_inference_request():
               'model_name':'testModel',
               'inference_id':'testInference'}
 
-    response = requests.post(url=inference_url,
+    response = requests.post(url=INFERENCE_URL,
                              params=params,
                              files=files)
 
@@ -44,7 +44,7 @@ def test_get_inference_result():
     params = {'user_name':'testName',
               'inference_id':'testInference'}
 
-    response = requests.get(url=inference_url,
+    response = requests.get(url=INFERENCE_URL,
                             params=params)
 
     print(response.text)

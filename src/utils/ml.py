@@ -5,7 +5,6 @@ Adopted in ../worker.py
 """
 
 
-import datetime
 import os
 import pickle
 from skimage.io import imread
@@ -14,8 +13,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score, f1_score, precision_score, recall_score
-from flask_restful import Resource, reqparse
+from sklearn.metrics import accuracy_score
 
 
 IMAGE_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)),
