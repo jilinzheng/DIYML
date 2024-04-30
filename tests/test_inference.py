@@ -1,5 +1,5 @@
 """
-Test valid and invalid CRUD operations on TrainingAPI resource.
+Test valid and invalid CRUD operations on InferenceAPI resource.
 """
 
 
