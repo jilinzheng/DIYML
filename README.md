@@ -23,6 +23,8 @@ This project showcases the following features:
 - Train image classification models with scikit-learn
 - Create inference requests
 - Get inference results
+- Document database with MongoDB
+- Task queues with Redis
 
 For more specific details on API usage, please see the [API documentation](https://app.swaggerhub.com/apis/Jilin/DIYML/0.0.1).
 
