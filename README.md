@@ -26,7 +26,7 @@ This project showcases the following features:
 - Document database with MongoDB
 - Task queues with Redis
 
-For more specific details on API usage, please see the [API documentation](https://app.swaggerhub.com/apis/Jilin/DIYML/0.0.1).
+For more specific details on API usage, please see the [API documentation](https://app.swaggerhub.com/apis-docs/Jilin/DIYML/0.0.1).
 
 <a name="instr"></a>
 ## Installation Instructions
@@ -39,14 +39,14 @@ For more specific details on API usage, please see the [API documentation](https
 2. `cd` into the repo, create and activate a virtual environment, and run `python3 -m pip install -r requirements.txt`.
 3. Start the actual API-serving Flask app with `python3 src/diyml.py`.
 4. Start a (or many!) Redis worker(s) with `python3 src/worker.py`.
-5. See [API documentation](https://app.swaggerhub.com/apis/Jilin/DIYML/0.0.1) for usage.
+5. See [API documentation](https://app.swaggerhub.com/apis-docs/Jilin/DIYML/0.0.1) for usage.
 
 <a name="instr_img"></a>
 ### Installing from Docker image
 
 1. Simply pull the [image](https://hub.docker.com/repository/docker/jilinnn/diyml/general).
-2. You may choose to use your own container orchestration, but I have included a [Docker Compose file](docker-compose.yml) that includes the necessary dependencies (MongoDB and Redis), as well as a nice MongoDB visualizer (Mongo Express).
-3. See [API documentation](https://app.swaggerhub.com/apis/Jilin/DIYML/0.0.1) for usage.
+2. You may choose to use your own container orchestration, but I have included a [Docker Compose file](docker-compose.yml) that includes the necessary dependencies, MongoDB and Redis, as well as a nice MongoDB visualizer, Mongo Express.
+3. See [API documentation](https://app.swaggerhub.com/apis-docs/Jilin/DIYML/0.0.1) for usage.
 
 <a name="demos"></a>
 ## Demos
