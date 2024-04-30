@@ -4,8 +4,8 @@
 1. [Purpose and Summary](#purp_and_sum)
 2. [Features](#features)
 3. [Installation Instructions](#instr)
-  1. [Installing from source code](#instr_source)
-  2. [Installing from Docker image](#instr_img)
+    1. [Installing from source code](#instr_source)
+    2. [Installing from Docker image](#instr_img)
 4. [Demonstrations (please see here for course assignments)](#demos)
 5. [References](#ref)
 
