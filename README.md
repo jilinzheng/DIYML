@@ -7,7 +7,6 @@
     1. [Installing from source code](#instr_source)
     2. [Installing from Docker image](#instr_img)
 4. [Demonstrations (please see here for course assignments)](#demos)
-5. [References](#ref)
 
 <a name="purp_and_sum"></a>
 ## Purpose and Summary
