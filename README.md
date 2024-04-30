@@ -55,8 +55,7 @@ Below are images/videos demonstrating certain functions of the API, which also s
 
 - Containerization
 
-<img width="1562" alt="Screenshot 2024-03-26 at 02 43 17" src="https://github.com/jilinzheng/DIYML/assets/133818802/cd0f3284-42df-46c8-9157-2ae8948da6e8">
-![Screenshot 2024-03-26 at 02 44 50](https://github.com/jilinzheng/DIYML/assets/133818802/f9e29cd8-e711-41e9-991f-0007feee77f8)
+<img width="1562" alt="Screenshot 2024-03-26 at 02 43 17" src="https://github.com/jilinzheng/DIYML/assets/133818802/cd0f3284-42df-46c8-9157-2ae8948da6e8">[Screenshot 2024-03-26 at 02 44 50](https://github.com/jilinzheng/DIYML/assets/133818802/f9e29cd8-e711-41e9-991f-0007feee77f8)
 
 - Database Schema (MongoDB)
 
