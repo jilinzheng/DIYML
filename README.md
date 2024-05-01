@@ -9,7 +9,7 @@
 4. [Demonstrations (please see here for course assignments)](#demos)
 
 <a name="purp_and_sum"></a>
-## Purpose and Summary
+## Summary and Purpose
 
 Do-It-Yourself Machine Learning is an easy-to-use REST API that allows users to easily train image classification models and create inference requests. This project was completed Spring 2024 for EC530 Software Engineering Principles @ Boston University.
 
