@@ -7,6 +7,7 @@
     1. [Installing from source code](#instr_source)
     2. [Installing from Docker image](#instr_img)
 4. [Demonstrations (please see here for course assignments)](#demos)
+    1. [Final Project Demo](#final_demo)
 
 <a name="purp_and_sum"></a>
 ## Summary and Purpose
@@ -53,13 +54,18 @@ For more specific details on API usage, please see the [API documentation](https
 
 Below are images/videos demonstrating certain functions of the API, which also serve as course assignment submissions:
 
+<a name="final_demo"></a>
+- Full API Demo Video
+    
+    - [![Full API Demo Video](https://github.com/jilinzheng/DIYML/assets/133818802/f3532809-ba14-40c6-bd39-40d7fdbcf50b)](https://youtu.be/-c4zb4-YEYE)
+
 - [Task Queue Implementation](https://youtu.be/RKGiA2wFB6o)
 
 - Containerization
 
-<img width="1562" alt="Screenshot 2024-03-26 at 02 43 17" src="https://github.com/jilinzheng/DIYML/assets/133818802/cd0f3284-42df-46c8-9157-2ae8948da6e8">
-<img width="1562" alt="Screenshot 2024-03-26 at 02 44 50" src="https://github.com/jilinzheng/DIYML/assets/133818802/f9e29cd8-e711-41e9-991f-0007feee77f8">
+    - <img width="1562" alt="Screenshot 2024-03-26 at 02 43 17" src="https://github.com/jilinzheng/DIYML/assets/133818802/cd0f3284-42df-46c8-9157-2ae8948da6e8">
+    - <img width="1562" alt="Screenshot 2024-03-26 at 02 44 50" src="https://github.com/jilinzheng/DIYML/assets/133818802/f9e29cd8-e711-41e9-991f-0007feee77f8">
 
 - Database Schema (MongoDB)
 
-<img width="421" alt="database_schema" src="https://github.com/jilinzheng/DIYML/assets/133818802/3bc6d7dc-8f62-45ac-a57b-5fec8ebbeb31">
+    - <img width="421" alt="database_schema" src="https://github.com/jilinzheng/DIYML/assets/133818802/3bc6d7dc-8f62-45ac-a57b-5fec8ebbeb31">
