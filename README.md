@@ -1,11 +1,11 @@
-# Jilin Zheng // U49258796 // Do-It-Yourself Machine Learning
+# Jilin Zheng // U49258796 // Do-It-Yourself Machine Learning!
 
 ## Table of Contents
 1. [Purpose and Summary](#purp_and_sum)
 2. [Features](#features)
 3. [Installation Instructions](#instr)
     1. [Installing from source code](#instr_source)
-    2. [Installing from Docker image](#instr_img)
+    2. [Installing from Docker image (recommended)](#instr_img)
 4. [Demonstrations (please see here for course assignments)](#demos)
     1. [Final Project Demo](#final_demo)
 
@@ -43,7 +43,7 @@ For more specific details on API usage, please see the [API documentation](https
 5. See [API documentation](https://app.swaggerhub.com/apis-docs/Jilin/DIYML/0.0.1) for usage.
 
 <a name="instr_img"></a>
-### Installing from Docker image
+### Installing from Docker image (recommended)
 
 1. Simply pull the [image](https://hub.docker.com/repository/docker/jilinnn/diyml/general).
 2. You may choose to use your own container orchestration, but I have included a [Docker Compose file](docker-compose.yml) that includes the necessary dependencies, MongoDB and Redis, as well as a nice MongoDB visualizer, Mongo Express.
