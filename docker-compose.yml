@@ -35,7 +35,8 @@ services:
   flask:
     platform: linux/amd64
     container_name: flask
-    build: .
+    #build: .
+    image: jilinnn/diyml:0.0.2
     ports:
       - 5000:5000
     volumes:
@@ -44,6 +45,7 @@ services:
       REDIS: redis
       REDIS_URL: "redis://redis:6379"
       MONGODB: mongodb
+      TZ: America/New_York
     depends_on:
       - redis
       - mongodb

@@ -55,14 +55,14 @@ def test_delete_user():
 
 
 if __name__ == "__main__":
-    choice = input("""
+    choice = int(input("""
 Select an option:
 0. reset()
 1. test_create_user()
 2. test_get_user()
 3. test_update_user()
 4. test_delete_user()
-""")
+"""))
     if choice == 0:
         reset()
     elif choice == 1:

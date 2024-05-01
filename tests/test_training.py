@@ -29,7 +29,7 @@ def test_create_single_model():
     if response.status_code == 400:
         response = requests.post(url=USER_URL,
                                 params=params)
-        assert response.status_code == 201 # created
+    assert response.status_code == 200 # created
 
     # create model associated with user
     params = {'user_name':'default',
@@ -66,12 +66,12 @@ def test_create_multiple_models():
 
 
 if __name__ == "__main__":
-    choice = input("""
+    choice = int(input("""
 Select an option:
 0. reset()
 1. test_create_single_model()
 2. test_create_multiple_models()
-""")
+"""))
     if choice == 0:
         reset()
     elif choice == 1:
