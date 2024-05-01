@@ -30,8 +30,8 @@ def train(user_name, model_name, categories):
     data = []
     labels = []
     for ii, category in enumerate(categories):
-        for jj, file in enumerate(os.listdir(os.path.join(IMAGE_DIR, category))):
-            img_path = os.path.join(IMAGE_DIR, category, file)
+        for jj, file in enumerate(os.listdir(os.path.join(IMAGE_DIR, user_name, category))):
+            img_path = os.path.join(IMAGE_DIR, user_name, category, file)
             img = imread(img_path) # JPEG ONLY
             img = resize(img, (15, 15))
             data.append(img.flatten())

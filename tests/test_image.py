@@ -13,7 +13,7 @@ from src.utils.reset import reset
 USER_URL = 'http://127.0.0.1:5000/user'
 IMAGE_URL = 'http://127.0.0.1:5000/image'
 files = {'file':open(os.path.join(os.path.dirname(__file__),
-                                  'test_image.png'),
+                                  'test_apple.png'),
                                   'rb')}
 
 
@@ -47,7 +47,7 @@ def test_delete_upload():
     """ Delete an uploaded image """
     # delete the test image file
     params = {'user_name':'testName',
-              'image_name':'test_image.png'}
+              'image_name':'test_apple.png'}
     response = requests.delete(url=IMAGE_URL,
                                params=params)
     assert response.status_code == 202 # accepted
@@ -57,3 +57,20 @@ def test_delete_upload():
     response = requests.delete(USER_URL,
                                params=params)
     assert response.status_code == 202 # accepted
+
+
+if __name__ == "__main__":
+    choice = int(input("""
+Select an option:
+0. reset()
+1. test_create_upload()
+2. test_delete_upload()
+"""))
+    if choice == 0:
+        reset()
+    elif choice == 1:
+        test_create_upload()
+    elif choice == 2:
+        test_delete_upload()
+    else:
+        print("Invalid choice, exiting.")

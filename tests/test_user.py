@@ -53,11 +53,25 @@ def test_delete_user():
                                params=params)
     assert response.status_code == 202 # accepted
 
-"""
+
 if __name__ == "__main__":
-    test_init()
-    test_create_user()
-    test_get_user()
-    test_update_user()
-    test_delete_user()
-"""
+    choice = input("""
+Select an option:
+0. reset()
+1. test_create_user()
+2. test_get_user()
+3. test_update_user()
+4. test_delete_user()
+""")
+    if choice == 0:
+        reset()
+    elif choice == 1:
+        test_create_user()
+    elif choice == 2:
+        test_get_user()
+    elif choice == 3:
+        test_update_user()
+    elif choice == 4:
+        test_delete_user()
+    else:
+        print("Invalid choice, exiting.")

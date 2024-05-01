@@ -32,7 +32,7 @@ def test_create_single_model():
         assert response.status_code == 201 # created
 
     # create model associated with user
-    params = {'user_name':'testName',
+    params = {'user_name':'default',
               'model_name':'testModel',
               'categories':['Apple', 'Banana','Mango']}
     response = requests.post(url=TRAINING_URL,
@@ -45,7 +45,7 @@ def test_create_single_model():
 def test_create_multiple_models():
     """ Create several models """
     # first create a test user testName if it doesn't exist
-    params = {'user_name':'testName',
+    params = {'user_name':'default',
               'user_pass':'testPass'}
     response = requests.get(url=USER_URL,
                             params=params)
@@ -56,10 +56,27 @@ def test_create_multiple_models():
 
     # create 10 models associated with user testName
     for ii in range(10):
-        params = {'user_name':'testName',
+        params = {'user_name':'default',
                 'model_name':f'testModel{ii}',
                 'categories':['Apple', 'Banana','Mango']}
         response = requests.post(url=TRAINING_URL,
                                 params=params)
         print(response.text)
         assert response.status_code == 201 # created
+
+
+if __name__ == "__main__":
+    choice = input("""
+Select an option:
+0. reset()
+1. test_create_single_model()
+2. test_create_multiple_models()
+""")
+    if choice == 0:
+        reset()
+    elif choice == 1:
+        test_create_single_model()
+    elif choice == 2:
+        test_create_multiple_models()
+    else:
+        print("Invalid choice, exiting.")
