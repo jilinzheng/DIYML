@@ -6,4 +6,9 @@ src/__pycache__
 src/utils/__pycache__
 tests/__pycache__
 tests
-ml.py
+src/utils/ml.py
+models
+demos
+README.md
+.pylintrc
+.gitignore
