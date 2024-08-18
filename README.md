@@ -1,4 +1,4 @@
-# Jilin Zheng // U49258796 // Do-It-Yourself Machine Learning!
+# Do-It-Yourself Machine Learning!
 
 ## Table of Contents
 1. [Purpose and Summary](#purp_and_sum)
